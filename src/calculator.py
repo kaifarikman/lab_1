@@ -33,4 +33,4 @@ def calculator_job(expression: str, operations: dict) -> Optional[float]:
                 stack.push(token_is_numer)
             except ValueError:
                 raise ValueError(f'Ошибка токена. Символ "{token}" не был обработан')
-    return stack.answer_()
+    return stack.answer()
