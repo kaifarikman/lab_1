@@ -1,58 +1,6 @@
-class Stack:
-    def __init__(self) -> None:
-        self._items = []
+import re
 
-    def is_empty(self) -> bool:
-        return len(self._items) == 0
-
-    def push(self, item) -> None:
-        self._items.append(item)
-
-    def pop(self) -> float:
-        if self.is_empty():
-            raise IndexError("Попытка извлечь элемент из пустого стека")
-        return self._items.pop()
-
-    def size(self) -> int:
-        return len(self._items)
-
-    def get_two_last_elements(self) -> (float, float):
-        if self.size() < 2:
-            raise IndexError("В стеке находится меньше двух элементов")
-        left = self.pop()
-        right = self.pop()
-        return left, right
-
-    def answer(self) -> float:
-        if self.size() != 1:
-            raise ValueError('Ошибка: выражение содержит лишние операнды')
-        return float(self._items[0])
-
-
-def get_tokens(expression: str) -> list[str]:
-    """
-    Разбиваю выражение на токены. Также игнорирую скобки, так как они не нужны
-    :param expression: str
-    :return:
-    """
-    expression = expression.replace('(', '')
-    expression = expression.replace(')', '')
-    tokens = expression.split()
-    return tokens
-
-
-def numbers_are_integer(a: float, b: float) -> bool:
-    """
-    Функция принимает два float числа
-    Проверяет можно ли их сконвертить в целые
-    Если да, то True. Иначе False
-    :param a: float
-    :param b: float
-    :return:
-    """
-    return a.is_integer() and b.is_integer()
-
-
+# Операции над числами
 OPERATIONS: dict = {
     '+': lambda x, y: x + y,
     '-': lambda x, y: x - y,
@@ -62,3 +10,37 @@ OPERATIONS: dict = {
     '//': lambda x, y: x // y,
     '%': lambda x, y: x % y
 }
+
+
+def get_tokens(expression: str) -> list[str]:
+    """
+    Разбивает выражение на токены (числа и операторы).
+    Удаляет скобки и проверяет корректность всех символов.
+    :param expression: строка с обратной польской записью
+    :return: список токенов (строк)
+    :raises ValueError: если встречен некорректный символ
+    """
+    # Удаляем скобки (они не нужны для вычисления RPN)
+    expr = expression.replace('(', '').replace(')', '')
+
+    # Регулярное выражение для чисел (целые и дробные) и операций
+    pattern = r'\d+(?:\.\d+)?|//|\*\*|[%+\-*/]'
+    tokens = re.findall(pattern, expr)
+
+    joined_tokens = ''.join(tokens)
+    expr_no_spaces = expr.replace(' ', '')
+    if joined_tokens != expr_no_spaces:
+        invalid_chars = set(expr_no_spaces) - set(joined_tokens)
+        raise ValueError(f'Некорректные символы в выражении: {" ".join(invalid_chars)}')
+
+    return tokens
+
+
+def numbers_are_integer(a: float, b: float) -> bool:
+    """
+    Проверяет, являются ли оба числа целыми.
+    :param a: первое число
+    :param b: второе число
+    :return: True, если оба числа целые
+    """
+    return a.is_integer() and b.is_integer()

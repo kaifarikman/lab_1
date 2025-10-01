@@ -51,3 +51,25 @@ def test_invalid_token_raises():
 def test_extra_operands_leftover_raises():
     with pytest.raises(ValueError):
         calculator_job("3 4", OPERATIONS)
+
+
+def test_single_number():
+    assert calculator_job("3", OPERATIONS) == 3.0
+
+
+def test_negative_results():
+    assert calculator_job("5 3 -", OPERATIONS) == 2.0
+    assert calculator_job("3 5 -", OPERATIONS) == -2.0
+
+
+def test_multiple_operations():
+    assert calculator_job("3 5 8 * -", OPERATIONS) == -37.0
+
+
+def test_empty_input_raises():
+    with pytest.raises(ValueError):
+        calculator_job("", OPERATIONS)
+
+
+def test_parentheses_ignored():
+    assert calculator_job("(3 4 +) 5 *", OPERATIONS) == 35.0

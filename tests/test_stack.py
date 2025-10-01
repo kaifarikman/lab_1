@@ -1,5 +1,5 @@
 import pytest
-from src.constants import Stack
+from src.stack import Stack
 
 
 def test_push_pop_and_size():
@@ -17,3 +17,19 @@ def test_pop_from_empty_raises():
     s = Stack()
     with pytest.raises(IndexError):
         s.pop()
+
+
+def test_get_two_last_elements():
+    s = Stack()
+    s.push(1)
+    s.push(2)
+    a, b = s.get_two_last_elements()
+    assert (a, b) == (2, 1)
+    assert s.is_empty() is True
+
+
+def test_get_two_last_with_error():
+    s = Stack()
+    s.push(1)
+    with pytest.raises(IndexError):
+        s.get_two_last_elements()

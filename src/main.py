@@ -3,6 +3,10 @@ from src.calculator import calculator_job
 
 
 def main() -> float | str:
+    """
+    Основная функция: читает RPN-выражение, вычисляет результат и выводит его.
+    Возвращает результат или 'Ошибка!' при исключении.
+    """
     rpn_expression: str = str(input())
     try:
         result: float = calculator_job(
@@ -10,7 +14,7 @@ def main() -> float | str:
             operations=OPERATIONS
         )
     except Exception as e:
-        print(f"Ошибка: {e}")
+        print(e)
         return 'Ошибка!'
     print(result)
     return result
