@@ -20,6 +20,9 @@ def get_tokens(expression: str) -> list[str]:
     :return: список токенов (строк)
     :raises ValueError: если встречен некорректный символ
     """
+    # Введена пустая строка
+    if expression == "":
+        raise ValueError('Вы ничего не ввели!')
     # Удаляем скобки (они не нужны для вычисления RPN)
     expr = expression.replace('(', '').replace(')', '')
 
