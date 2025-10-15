@@ -73,3 +73,8 @@ def test_empty_input_raises():
 
 def test_parentheses_ignored():
     assert calculator_job("(3 4 +) 5 *", OPERATIONS) == 35.0
+
+
+def test_unary_operators():
+    assert calculator_job('2 +2 -', OPERATIONS) == 0.0
+    assert calculator_job('2 +2 +', OPERATIONS) == 4.0

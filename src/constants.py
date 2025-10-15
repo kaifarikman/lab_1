@@ -27,7 +27,7 @@ def get_tokens(expression: str) -> list[str]:
     expr = expression.replace('(', '').replace(')', '')
 
     # Регулярное выражение для чисел (целые и дробные) и операций
-    pattern = r'\d+(?:\.\d+)?|//|\*\*|[%+\-*/]'
+    pattern = r'\s*([+\-]?\d+(?:\.\d+)?|//|\*\*|[%+\-*/])'
     tokens = re.findall(pattern, expr)
 
     joined_tokens = ''.join(tokens)
