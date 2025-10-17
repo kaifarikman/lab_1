@@ -45,7 +45,7 @@ def test_insufficient_operands_raises():
 
 def test_invalid_token_raises():
     with pytest.raises(ValueError):
-        calculator_job("3 a +", OPERATIONS)
+        calculator_job("3 b +", OPERATIONS)
 
 
 def test_extra_operands_leftover_raises():
