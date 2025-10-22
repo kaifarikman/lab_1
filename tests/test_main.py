@@ -33,3 +33,9 @@ def test_main_empty_input(monkeypatch):
     monkeypatch.setattr(builtins, "input", lambda: "")
     result = main_module.main()
     assert result == 'Ошибка!'
+
+
+def test_main_complex_ok(monkeypatch):
+    # Проверяем, что main корректно возвращает число для сложного валидного выражения
+    monkeypatch.setattr(builtins, "input", lambda: "3 4 + 5 * 6 -")
+    assert main_module.main() == 29.0

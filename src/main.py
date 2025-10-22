@@ -1,4 +1,4 @@
-from src.constants import OPERATIONS
+from src.config import OPERATIONS
 from src.calculator import calculator_job
 
 
