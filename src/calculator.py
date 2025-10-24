@@ -24,8 +24,7 @@ def get_tokens(expression: str) -> list[str]:
     joined_tokens = ''.join(tokens)
     expr_no_spaces = expr.replace(' ', '')
     if joined_tokens != expr_no_spaces:
-        invalid_chars = set(expr_no_spaces) - set(joined_tokens)
-        raise ValueError(f'Некорректные символы в выражении: {" ".join(invalid_chars)}')
+        raise ValueError(f'Существует некорректный токен')
 
     return tokens
 
